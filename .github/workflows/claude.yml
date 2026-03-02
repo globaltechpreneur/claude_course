@@ -31,9 +31,11 @@ jobs:
           fetch-depth: 1
 
       - name: Project Setup
-        run: |
-          npm run setup
-          npm run dev:daemon
+          run: |
+            npm run setup
+            npx playwright install --with-deps chromium
+            npm run dev:daemon
+            npx wait-on http://localhost:3000 --timeout 30000
 
       - name: Run Claude Code
         id: claude
